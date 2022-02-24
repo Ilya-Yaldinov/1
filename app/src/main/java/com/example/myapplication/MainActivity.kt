@@ -1,30 +1,32 @@
 package com.example.myapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-import android.widget.Toast.makeText
-import org.w3c.dom.Text
-import java.io.Console
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val button = findViewById<Button>(R.id.button)
+        button.setOnClickListener{
+            pressButton()
+        }
     }
 
-    fun pressButton(view: View){
+    fun pressButton(){
         val edit = findViewById<EditText>(R.id.edit)
-        val view = findViewById<TextView>(R.id.view)
-        if (edit.text.isNotEmpty()){
-            view.text = edit.getText().toString()
-        }else{
+        if (edit.text.isEmpty()){
             val button = Toast.makeText(this, "Введите текст", Toast.LENGTH_SHORT)
             button.show()
+        } else{
+            val intent = Intent(this, NextActivity::class.java)
+            intent.putExtra("word", edit.text.toString())
+            startActivity(intent)
         }
     }
 }
